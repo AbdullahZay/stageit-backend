@@ -114,4 +114,22 @@ public class PostService {
                 })
                 .toList();
     }
+
+    public void deletePost(Long id) {
+        String email = SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+
+        if (!post.getUser().getId().equals(user.getId())) {
+            throw new RuntimeException("You can only delete your own posts!");
+        }
+
+        postRepository.delete(post);
+    }
 }

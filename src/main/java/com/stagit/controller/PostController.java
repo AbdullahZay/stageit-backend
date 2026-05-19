@@ -41,4 +41,10 @@ public class PostController {
         List<PostResponse> categoryPosts = postService.getPostByCategory(category);
         return ResponseEntity.ok(categoryPosts);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePost(@PathVariable Long id) {
+        postService.deletePost(id);
+        return ResponseEntity.ok("Post deleted");
+    }
 }
