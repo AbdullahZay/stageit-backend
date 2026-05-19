@@ -60,6 +60,7 @@ public class UserService {
 
         LoginResponse response = new LoginResponse();
         response.setToken(token);
+        response.setUsername(user.getUsername());
 
         return response;
     }
